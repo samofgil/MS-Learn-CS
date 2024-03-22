@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using System.Text;
 //Use arrays and for-loops to determine & print students' names, scores, and grades.
     //supports extra credit (worth 10%) and the addition of students to the roster.
 
-//TO ADD NEW STUDENTS: 
+//TO ADD NEW STUDENTS:
     //1-define "int[] ___Scores" for new student
     //2-Add student name to string[] studentNames
-    //3-Add else if condition for (else if (currentStudent == "___")) 
+    //3-Add else if condition for (else if (currentStudent == "___"))
 
-// initialize variables - graded assignments 
+// initialize variables - graded assignments
 int examAssignments = 5;
 int[] sophiaScores = new int[] { 90, 86, 87, 98, 100, 94, 90 };
 int[] andrewScores = new int[] { 92, 89, 81, 96, 90, 89 };
@@ -17,7 +17,7 @@ int[] loganScores = new int[] { 90, 95, 87, 88, 96, 96 };
 int[] beckyScores = new int[] { 92, 91, 90, 91, 92, 92, 92 };
 int[] chrisScores = new int[] { 84, 86, 88, 90, 92, 94, 96, 98 };
 int[] ericScores = new int[] { 80, 90, 100, 80, 90, 100, 80, 90 };
-int[] gregorScores = new int[] { 91, 91, 91, 91, 91, 91, 91 };    
+int[] gregorScores = new int[] { 91, 91, 91, 91, 91, 91, 91 };
 
 // Student names
 string[] studentNames = new string[] { "Sophia", "Andrew", "Emma", "Logan", "Becky", "Chris", "Eric", "Gregor" };
@@ -29,7 +29,7 @@ string currentStudentLetterGrade = "";
 decimal studentScore;
 string currentStudent = "";
 
-Console.WriteLine("Student\t\tGrade\n");
+Console.WriteLine("Student\t\tExam Score\tOverall Grade\tExtra Credit\n");
 foreach (string name in studentNames)
 {
     int studentSum = 0;
@@ -52,23 +52,34 @@ foreach (string name in studentNames)
     else if (currentStudent == "Gregor")
         studentScores = gregorScores;
 
-   
+
    //Calculate student's final score
     //studentSum = studentScores.Sum();
     int gradedAssignments = 0;
+    decimal examScore = 0;
+    int extraCredit = 0;
+    decimal extraCreditPoints = 0;
+    int extraCreditCount = 0;
     foreach (int score in studentScores)
     {
         gradedAssignments += 1;
         if (gradedAssignments <= examAssignments)
         {
             studentSum += score;
+            examScore = studentSum;
         }
         else
         {
             studentSum += score / 10;
+            extraCredit += score;
+            extraCreditCount++;
         }
     }
     studentScore = (decimal)studentSum / examAssignments;
+    examScore /= examAssignments;
+    extraCreditPoints = (decimal)extraCredit/10/examAssignments;
+    extraCredit /= extraCreditCount;
+
 
     //determine student's letter grade
     if (studentScore >= 97)
@@ -96,7 +107,7 @@ foreach (string name in studentNames)
     else if (studentScore >= 60)
         currentStudentLetterGrade = "D-";
 
-    Console.WriteLine($"{name}:\t\t" + studentScore + $"\t{currentStudentLetterGrade}");
+    Console.WriteLine($"{name}:\t\t{examScore}\t\t" + studentScore + $"\t{currentStudentLetterGrade}\t{extraCredit} ({extraCreditPoints} pts)");
 }
 
 Console.WriteLine("Press the Enter key to continue");
